@@ -5,7 +5,7 @@ import {
    Text, Pressable,
 } from 'native-base';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { VictoryPie } from 'victory-native';
+import { VictoryPie ,VictoryStack, VictoryBar} from 'victory-native';
 
 const ActionScreen = ({ onClose, site }) => {
    const {
@@ -43,25 +43,27 @@ const ActionScreen = ({ onClose, site }) => {
             <Text mt={2}><Text fontWeight={'bold'}>經度/緯度：</Text>{Number(lng).toFixed(2)}/{Number(lat).toFixed(2)}</Text>
             <Text mt={2}><Text fontWeight={'bold'}>更新時間：</Text>{mday}</Text>
             <Center>
-               <VictoryPie
-                  width={250}
-                  height={250}
-                  colorScale={["tomato", "gold"]}
-                  data={[
-                     { x: 1, y: Number(sbi), label: `可借(${sbi})` },
-                     { x: 2, y: Number(bemp), label: `可還(${bemp})` },
-                  ]}
-                  style={{
-                     data: {
-                        fillOpacity: 0.9, stroke: "#c43a31", strokeWidth: 3
-                     },
-                     labels: {
-                        fontSize: 12, fill: "#c43a31",
-                        padding: 10,
-
-                     }
-                  }}
-               />
+            <VictoryStack
+                  horizontal={true}
+                  colorScale={["tomato", "orange"]}
+                  >
+                  <VictoryBar 
+                     data={[{x: "a", y: Number(sbi), label: `可借(${sbi})`}]}
+                     style={{
+                        labels: {
+                           fontSize: 12, fill: "#c43a31",
+                        }
+                     }}
+                  />
+                  <VictoryBar 
+                     data={[{x: "a", y: Number(bemp), label: `可還(${bemp})` }]}
+                     style={{
+                        labels: {
+                           fontSize: 12, fill: "#c43a31",
+                        }
+                     }}
+                  />
+               </VictoryStack>
             </Center>
          </Box>
 
